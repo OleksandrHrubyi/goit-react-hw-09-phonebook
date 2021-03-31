@@ -36,13 +36,13 @@
   "bugs": {
     "url": "https://github.com/OleksandrHrubyi/goit-react-hw-09-phonebook/issues"
   },
-  "homepage": "https://OleksandrHrubyi.github.io/goit-react-hw-09-phonebook/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build",
+    "deploy": "netlify deploy -p",
+    "predeploy": "npm run build",
     "gadd": "git add -A",
     "gcm": "git commit -m",
     "gp": "git push origin"
