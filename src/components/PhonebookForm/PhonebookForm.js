@@ -3,6 +3,9 @@ import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
 import {
   addContactsOperation,
   getContactsOperation,
@@ -75,7 +78,34 @@ function PhonebookForm({ getContacts, onSubmit, sameContact }) {
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <Form className={styles.form} onSubmit={handleSubmit}>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Add your contact</Form.Label>
+          <Form.Control
+            type="text"
+            name="name"
+            value={name}
+            onChange={handleChange}
+            placeholder="Name"
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Enter number</Form.Label>
+          <Form.Control
+            type="number"
+            name="number"
+            value={number}
+            onChange={handleChange}
+            placeholder="Phone number"
+            mask="+380"
+          />
+        </Form.Group>
+        <Button type="submit" variant="dark" block>
+          Add contact
+        </Button>
+      </Form>
+      {/* <form className={styles.form} onSubmit={handleSubmit}>
         <label className={styles.label}>
           {" "}
           <span className={styles.name}>Name</span>
@@ -103,7 +133,7 @@ function PhonebookForm({ getContacts, onSubmit, sameContact }) {
         <button type="submit" className="btn btn-success">
           Add contact
         </button>
-      </form>
+      </form> */}
       <CSSTransition
         in={errorName}
         unmountOnExit
@@ -120,7 +150,6 @@ function PhonebookForm({ getContacts, onSubmit, sameContact }) {
       >
         <ErrorPopup text="Please enter number" />
       </CSSTransition>
-
       <CSSTransition
         in={errorSameName}
         timeout={250}

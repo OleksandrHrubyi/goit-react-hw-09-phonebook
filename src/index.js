@@ -9,7 +9,6 @@ import "index.css";
 
 ReactDOM.render(
   <Provider store={store}>
-    "use strict"
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <App />

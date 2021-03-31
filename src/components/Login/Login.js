@@ -82,7 +82,7 @@ function Login({ onLogin }) {
         <ErrorPopup text={"Please enter email or password!"} />
       </CSSTransition>
 
-      <Button variant="primary" type="submit">
+      <Button variant="dark" type="submit" block>
         Login
       </Button>
     </Form>

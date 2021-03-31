@@ -5,6 +5,10 @@
   flex-direction: column;
 }
 
+.box {
+  width: 100%;
+}
+
 .nav {
   background: #007bff;
   margin-bottom: 10px;

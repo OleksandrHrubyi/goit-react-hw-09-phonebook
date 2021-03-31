@@ -97,7 +97,7 @@ function Registr({ onSubmit }) {
         <ErrorPopup text="Please enter name, email, password!" />
       </CSSTransition>
 
-      <Button variant="primary" type="submit">
+      <Button variant="dark" type="submit" block>
         Submit
       </Button>
     </Form>
