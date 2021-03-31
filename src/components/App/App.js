@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header/Header";
@@ -25,7 +25,6 @@ function App({ onRefreshUser }) {
       <Container>
         <Suspense fallback={<p>Loud...</p>}>
           <Switch>
-            <Route path="/main" exact component={Main}></Route>
             <PublicRoute restricted exact path="/login" component={Login} />
             <PublicRoute restricted exact path="/registr" component={Registr} />
             <PrivatRoute component={Main} path="/contacts" exact />
