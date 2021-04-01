@@ -26,13 +26,19 @@ function Header({ islogin, name, onLogout }) {
         <div className={styles.themeContainer}>
           {islogin ? (
             <div className={styles.authname}>
-              <span className={styles.name}>Welcome, {name}</span>
+              <span className={styles.name}>
+                Welcome, {name && name.toUpperCase()}
+              </span>
+
               <button
+                className={styles.logoutBtn}
                 type="button"
                 onClick={onLogout}
-                className="btn btn-primary"
               >
-                Logout <AiOutlineLogout />
+                <IconContext.Provider value={{ className: styles.loginIcon }}>
+                  <AiOutlineLogout />{" "}
+                </IconContext.Provider>
+                Logout
               </button>
             </div>
           ) : (
@@ -40,7 +46,7 @@ function Header({ islogin, name, onLogout }) {
               <div className={styles.nav}>
                 <NavLink className={styles.login} to="/login">
                   <IconContext.Provider value={{ className: styles.loginIcon }}>
-                    <AiOutlineLogin /> <span>Login</span>
+                    <AiOutlineLogin /> <span className={styles.loginTitle}>Login</span>
                   </IconContext.Provider>
                 </NavLink>
                 <NavLink className={styles.registration} to="/registr">

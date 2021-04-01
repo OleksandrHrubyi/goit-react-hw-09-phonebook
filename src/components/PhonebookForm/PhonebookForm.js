@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { CSSTransition } from "react-transition-group";
+
 import { connect } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
-import ErrorPopup from "../ErrorPopup/ErrorPopup";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
 import {
   addContactsOperation,
   getContactsOperation,
@@ -13,12 +12,17 @@ import {
 import { getAllContacts } from "../../redux/Contacts/contactsSelectors";
 import styles from "../PhonebookForm/phonebookForm.module.css";
 
+import { alert, defaultModules } from "@pnotify/core";
+import "@pnotify/core/dist/PNotify.css";
+import * as PNotifyMobile from "@pnotify/mobile";
+import "@pnotify/mobile/dist/PNotifyMobile.css";
+import "@pnotify/core/dist/BrightTheme.css";
+
+defaultModules.set(PNotifyMobile, {});
+
 function PhonebookForm({ getContacts, onSubmit, sameContact }) {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-  const [errorSameName, setErrorSameName] = useState(false);
-  const [errorName, setErrorName] = useState(false);
-  const [errorNumber, setErrorNumber] = useState(false);
 
   useEffect(() => {
     getContacts();
@@ -32,28 +36,25 @@ function PhonebookForm({ getContacts, onSubmit, sameContact }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name.length === 0) {
-      setErrorName(true);
-      setTimeout(() => {
-        setErrorName(false);
-      }, 3000);
+      alert({
+        text: "Please enter name",
+      });
       return;
     }
 
     if (number.length === 0) {
-      setErrorNumber(true);
-      setTimeout(() => {
-        setErrorNumber(false);
-      }, 3000);
+      alert({
+        text: "Please enter number",
+      });
       return;
     }
 
     const result = sameContact.find((el) => el.name === name);
 
     if (result) {
-      setErrorSameName(true);
-      setTimeout(() => {
-        setErrorSameName(false);
-      }, 3000);
+      alert({
+        text: "This contact already exists",
+      });
       return;
     }
 
@@ -85,6 +86,7 @@ function PhonebookForm({ getContacts, onSubmit, sameContact }) {
             type="text"
             name="name"
             value={name}
+            maxLength="40"
             onChange={handleChange}
             placeholder="Name"
           />
@@ -97,67 +99,13 @@ function PhonebookForm({ getContacts, onSubmit, sameContact }) {
             name="number"
             value={number}
             onChange={handleChange}
-            placeholder="Phone number"
-            mask="+380"
+            placeholder="Phone number 380"
           />
         </Form.Group>
         <Button type="submit" variant="dark" block>
           Add contact
         </Button>
       </Form>
-      {/* <form className={styles.form} onSubmit={handleSubmit}>
-        <label className={styles.label}>
-          {" "}
-          <span className={styles.name}>Name</span>
-          <input
-            className={styles.input}
-            name="name"
-            type="text"
-            value={name}
-            placeholder="enter name"
-            onChange={handleChange}
-          />
-        </label>
-        <label className={styles.label}>
-          {" "}
-          <span className={styles.number}>Number</span>
-          <input
-            className={styles.input}
-            name="number"
-            type="number"
-            value={number}
-            placeholder="enter number"
-            onChange={handleChange}
-          />
-        </label>
-        <button type="submit" className="btn btn-success">
-          Add contact
-        </button>
-      </form> */}
-      <CSSTransition
-        in={errorName}
-        unmountOnExit
-        timeout={3000}
-        classNames={styles}
-      >
-        <ErrorPopup text="Please enter name" />
-      </CSSTransition>
-      <CSSTransition
-        in={errorNumber}
-        unmountOnExit
-        timeout={3000}
-        classNames={styles}
-      >
-        <ErrorPopup text="Please enter number" />
-      </CSSTransition>
-      <CSSTransition
-        in={errorSameName}
-        timeout={250}
-        classNames={styles}
-        unmountOnExit
-      >
-        <ErrorPopup text="this contact already exists " />
-      </CSSTransition>
     </div>
   );
 }

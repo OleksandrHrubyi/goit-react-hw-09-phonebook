@@ -1,9 +1,12 @@
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { IconContext } from "react-icons";
 import styles from "../ContactList/contactList.module.css";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { deleteContactOperation } from "../../redux/Contacts/contactsOperations";
 import { getVisibleContacts } from "../../redux/Contacts/contactsSelectors";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FiPhoneCall } from "react-icons/fi";
 
 function Card({ arr, onDel }) {
   return (
@@ -13,19 +16,38 @@ function Card({ arr, onDel }) {
           return (
             <CSSTransition key={id} timeout={3000} classNames={styles}>
               <li className={styles.item}>
-                <h3 className={styles.name}>{name} </h3>
-                <a className={styles.number} href="tel:{number}">
-                  {number}
-                </a>
-                <button
-                  className="btn btn-outline-danger"
-                  onClick={() => {
-                    onDel(id);
-                  }}
-                  type="button"
-                >
-                  delite
-                </button>
+                <div className={styles.callContainer}>
+                  <div>
+                    <a href="tel:{number}" className={styles.callIcon}>
+                      <IconContext.Provider
+                        value={{
+                          size: "1.5em",
+                          color: "rgb(104, 177, 132)",
+                          className: styles.iconPhone,
+                        }}
+                      >
+                        <FiPhoneCall />
+                      </IconContext.Provider>
+                    </a>
+                  </div>
+                  <div>
+                    <h3 className={styles.name}>{name} </h3>
+                    <p className={styles.phoneTitle}>{number}</p>
+                  </div>
+                </div>
+                <div className={styles.iconDelBox}>
+                  <IconContext.Provider value={{ size: "1.3em" }}>
+                    <button
+                      className="btn btn-outline-danger"
+                      onClick={() => {
+                        onDel(id);
+                      }}
+                      type="button"
+                    >
+                      <RiDeleteBin6Line />
+                    </button>
+                  </IconContext.Provider>
+                </div>
               </li>
             </CSSTransition>
           );

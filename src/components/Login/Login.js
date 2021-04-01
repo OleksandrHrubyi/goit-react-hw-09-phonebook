@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
 import { loginUser } from "../../redux/User/userOperation";
 import { getErrorMessage } from "../../redux/User/userSelectors";
-import ErrorPopup from "../ErrorPopup/ErrorPopup";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import styles from "./login.module.css";
@@ -11,18 +9,10 @@ import styles from "./login.module.css";
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
 
   const reset = () => {
     setEmail("");
     setPassword("");
-  };
-
-  const errorPopup = (time) => {
-    setError(true);
-    setTimeout(() => {
-      setError(false);
-    }, time);
   };
 
   const handleChange = (event) => {
@@ -43,11 +33,10 @@ function Login({ onLogin }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (email && password) {
-      onLogin({ email, password, error });
+      onLogin({ email, password });
       reset();
       return;
     }
-    errorPopup(2000);
   };
 
   return (
@@ -60,6 +49,7 @@ function Login({ onLogin }) {
           value={email}
           onChange={handleChange}
           placeholder="Enter your email"
+          required
         />
       </Form.Group>
 
@@ -71,16 +61,9 @@ function Login({ onLogin }) {
           value={password}
           onChange={handleChange}
           placeholder="Password"
+          required
         />
       </Form.Group>
-      <CSSTransition
-        in={error}
-        unmountOnExit
-        timeout={3000}
-        classNames={styles}
-      >
-        <ErrorPopup text={"Please enter email or password!"} />
-      </CSSTransition>
 
       <Button variant="dark" type="submit" block>
         Login

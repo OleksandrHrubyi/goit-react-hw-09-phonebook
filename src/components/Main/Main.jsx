@@ -6,6 +6,7 @@ import ContactList from "../ContactList/ContactList";
 import Filter from "../Filter/Filter";
 import filterStyles from "./main.module.css";
 import { getAllContacts } from "../../redux/Contacts/contactsSelectors";
+import styles from "./main.module.css";
 
 function Main({ contacts }) {
   return (
@@ -19,7 +20,7 @@ function Main({ contacts }) {
       >
         <div>
           {" "}
-          <h2>Contacts</h2>
+          <p className={styles.contactTitle}>Contacts</p>
           <Filter />
         </div>
       </CSSTransition>
