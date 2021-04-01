@@ -1,24 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { CSSTransition } from "react-transition-group";
+
 import { registerUser } from "../../redux/User/userOperation";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import ErrorPopup from "../ErrorPopup/ErrorPopup";
-import styles from "./registr.module.css";
 
 function Registr({ onSubmit }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-
-  const errorPopup = (time) => {
-    setError(true);
-    setTimeout(() => {
-      setError(false);
-    }, time);
-  };
 
   const reset = () => {
     setName("");
@@ -50,7 +40,6 @@ function Registr({ onSubmit }) {
       reset();
       return;
     }
-    errorPopup(2000);
   };
 
   return (
@@ -63,6 +52,7 @@ function Registr({ onSubmit }) {
           value={name}
           onChange={handleChange}
           placeholder="Enter your name"
+          autoComplete="off"
         />
       </Form.Group>
       <Form.Group controlId="formBasicEmail">
@@ -73,6 +63,7 @@ function Registr({ onSubmit }) {
           value={email}
           onChange={handleChange}
           placeholder="Enter email"
+          autoComplete="off"
         />
         <Form.Text className="text-muted">
           We'll never share your email with anyone else.
@@ -86,16 +77,9 @@ function Registr({ onSubmit }) {
           value={password}
           onChange={handleChange}
           placeholder="Password"
+          autoComplete="off"
         />
       </Form.Group>
-      <CSSTransition
-        in={error}
-        unmountOnExit
-        timeout={3000}
-        classNames={styles}
-      >
-        <ErrorPopup text="Please enter name, email, password!" />
-      </CSSTransition>
 
       <Button variant="dark" type="submit" block>
         Submit

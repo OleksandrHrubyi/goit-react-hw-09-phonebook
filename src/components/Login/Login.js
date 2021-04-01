@@ -49,6 +49,7 @@ function Login({ onLogin }) {
           value={email}
           onChange={handleChange}
           placeholder="Enter your email"
+          autoComplete="off"
           required
         />
       </Form.Group>
@@ -62,6 +63,7 @@ function Login({ onLogin }) {
           onChange={handleChange}
           placeholder="Password"
           required
+          autoComplete="off"
         />
       </Form.Group>
 

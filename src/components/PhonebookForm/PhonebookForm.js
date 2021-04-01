@@ -89,6 +89,7 @@ function PhonebookForm({ getContacts, onSubmit, sameContact }) {
             maxLength="40"
             onChange={handleChange}
             placeholder="Name"
+            autoComplete="off"
           />
         </Form.Group>
 
@@ -100,6 +101,7 @@ function PhonebookForm({ getContacts, onSubmit, sameContact }) {
             value={number}
             onChange={handleChange}
             placeholder="Phone number 380"
+            autoComplete="off"
           />
         </Form.Group>
         <Button type="submit" variant="dark" block>
